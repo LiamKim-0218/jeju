@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- Font Awesome Kit JavaScript 로드 -->
+	<script src="https://kit.fontawesome.com/e2bc8b7b8f.js" crossorigin="anonymous"></script>
+
+	<link rel="icon" href="/imgs/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/imgs/favicon.ico" type="image/x-icon">
+	<style>
+		/* 추가된 CSS 스타일 */
+		.navbar-brand img {
+			margin-left: 50px;
+			margin-right: 100px;
+			/* 로고 오른쪽 간격 조절 */
+		}
+
+		.navbar-nav .nav-link {
+			font-weight: bold;
+			/* 글꼴을 굵게 만듦 */
+		}
+
+		.navbar-nav .nav-item {
+			margin-right: 15px;
+			/* 각 메뉴 간격 조절 */
+		}
+
+
+		.btn-outline-primary {
+			margin-right: 70px;
+			/* 로그인 버튼을 오른쪽으로 이동 */
+		}
+
+
+		.search-suggestions {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			transform: translateX(-50%);
+			max-width: 100%;
+			width: 80%;
+			/* 너비 조절 */
+			background-color: #fff;
+			border: 1px solid #ddd;
+			padding: 20px;
+			/* 여백 조절 */
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			/* 그림자 효과 추가 */
+			border-radius: 4px;
+			/* 모서리를 둥글게 만듦 */
+			z-index: 1;
+			/* 다른 요소 위에 표시되도록 함 */
+		}
+
+		.search-suggestions h5 {
+			margin-bottom: 10px;
+			/* 여백 조절 */
+			font-size: 16px;
+			/* 글꼴 크기 조절 */
+			color: #333;
+			/* 글꼴 색상 조절 */
+		}
+
+		.search-suggestions ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.search-suggestions li {
+			margin-bottom: 8px;
+			/* 여백 조절 */
+			font-size: 14px;
+			/* 글꼴 크기 조절 */
+			color: #555;
+			/* 글꼴 색상 조절 */
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<!-- 로고 이미지로 변경 -->
+		<a class="navbar-brand" href="/">
+			<img src="/imgs/logo.png" style="width: 100%; max-width: 150px;" alt="Jeju Tourism Logo">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link mr-5" href="/">홈 <span class="sr-only">(current)</span></a>
+				</li>
+				<!-- 드롭다운 추가 -->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle mr-5" href="/jejuRegion" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+						지역
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="/jejuRegion">제주시</a>
+						<a class="dropdown-item" href="/region">서귀포시</a>
+						<!-- 다른 지역 항목들 추가 -->
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link mr-5" href="pages/recommend">추천</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="pages/community">커뮤니티</a>
+				</li>
+			</ul>
+
+			<div class="search-container">
+				<form class="form-inline my-2 my-lg-0">
+					<div class="input-group">
+						<input class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="검색"
+							id="searchInput">
+						<div class="input-group-append">
+							<button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchButton">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</div>
+					<div class="search-suggestions">
+						<h5>최근 검색어</h5>
+						<ul>
+							<li>검색어 1</li>
+							<li>검색어 2</li>
+							<li>검색어 3</li>
+						</ul>
+						<h5>최근 인기 검색어</h5>
+						<ul>
+							<li>인기 검색어 1</li>
+							<li>인기 검색어 2</li>
+							<li>인기 검색어 3</li>
+						</ul>
+					</div>
+				</form>
+
+			</div>
+
+			<!-- 로그인 아이콘 추가 -->
+			<button class="btn btn-outline-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#loginModal">
+				<i class="far fa-user-circle"></i>
+			</button>
+		</div>
+	</nav>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<!-- 로그인 모달 창 -->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="loginModalLabel">로그인</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- 로그인 폼 등 추가 -->
+					<form>
+						<div class="form-group">
+							<label for="username">사용자 이름</label>
+							<input type="text" class="form-control" id="username" placeholder="사용자 이름">
+						</div>
+						<div class="form-group">
+							<label for="password">비밀번호</label>
+							<input type="password" class="form-control" id="password" placeholder="비밀번호">
+						</div>
+						<button type="submit" class="btn btn-primary btn-block">로그인</button>
+						<!-- 회원가입 링크 -->
+						<div class="mt-3">
+							<p>계정이 없으신가요? <a href="user/regist">회원가입</a></p>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// 검색 입력란을 클릭했을 때 이벤트 처리
+		document.getElementById('searchInput').addEventListener('click', function (event) {
+			event.stopPropagation(); // 이벤트 전파 중지
+			var suggestions = document.querySelector('.search-suggestions');
+			suggestions.style.display = 'block';
+		});
+
+		// 문서의 다른 부분을 클릭했을 때 검색어 제안이 사라지도록 처리
+		document.addEventListener('click', function () {
+			var suggestions = document.querySelector('.search-suggestions');
+			suggestions.style.display = 'none';
+		});
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>제주옵서양</title>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <!-- 추가로 필요한 스타일 -->
+    <style>
+        .swiper-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 추가된 스타일 */
+        h2 {
+            text-align: center; /* 가운데 정렬 */
+            margin: 30px 0;
+            color: black;
+            font-weight: bold; /* 여행 문구 굵게 설정 */
+        }
+
+        .tourist-spot {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tourist-spot h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .tourist-spot p {
+            color: #666;
+        }
+    </style>
+    <head th:replace="~{basic/header :: head}"></head>
+</head>
+
+<body>
+    <div th:replace="~{basic/header :: body}"></div>
+
+    <div>
+        <swiper-container>
+            <swiper-slide>
+                <img src="/imgs/logo.png" alt="슬라이드 1">
+            </swiper-slide>
+            <swiper-slide>
+                <img src="/imgs/logo.png" alt="슬라이드 2">
+            </swiper-slide>
+            <swiper-slide>
+                <img src="/imgs/logo.png" alt="슬라이드 3">
+            </swiper-slide>
+            <!-- 필요한 만큼 슬라이드 아이템 추가 -->
+        </swiper-container>
+    </div>
+
+    <div>
+        <h2>오늘의 추천 장소</h2>
+    </div>
+
+    <!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->
+    <div th:each="touristSpot : ${touristSpots}" class="tourist-spot">
+        <h2 th:text="${touristSpot.title}"></h2>
+        <p th:text="${touristSpot.address}"></p>
+        <!-- 다른 필요한 정보들도 출력 가능 -->
+    </div>
+
+    <div th:replace="~{basic/footer :: body}"></div>
+</body>
+
+</html>

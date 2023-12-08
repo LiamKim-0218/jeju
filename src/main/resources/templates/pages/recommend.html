@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="basic/header :: head">
+	<title>All Tourist Spots</title>
+</head>
+
+<body>
+<div th:include="basic/header :: body">	</div>
+<h1>All Tourist Spots</h1>
+
+<!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->
+<div th:each="touristSpot : ${touristSpots}">
+    <h2 th:text="${touristSpot.title}"></h2>
+    <p th:text="${touristSpot.address}"></p>
+    <!-- 다른 필요한 정보들도 출력 가능 -->
+</div>
+
+	<div th:include="basic/footer :: body"></div>
+
+</body>
+</html>
+
+

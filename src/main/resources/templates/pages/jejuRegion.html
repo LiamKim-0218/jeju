@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>All Tourist Spots</title>
+	<style>
+		#content {
+			display: flex;
+			margin-top: 10px;
+			margin-left: 65px;
+		}
+
+		#map {
+			width: 50%;
+			height: 600px;
+		}
+
+		#info {
+			width: 40%;
+		}
+
+		#info h3 {
+			font-weight: bold;
+			font-size: 20px;
+			/* 크기 조절 */
+			margin-top: 50px;
+			margin-bottom: 15px;
+			margin-left: 65px;
+			/* 여백 추가 */
+		}
+
+		#map-info {
+			font-size: 20px;
+			/* 크기 조절 */
+			font-weight: bold;
+			margin-left: 5%;
+		}
+	</style>
+
+	<head th:replace="~{basic/header :: head}"></head>
+</head>
+
+<body>
+	<div th:replace="~{basic/header :: body}"></div>
+	<div th:utext="${visitJejuData}"></div>
+
+	<div id="info">
+		<h3>원하는 지역에서 여행을 즐겨보세요.</h3>
+	</div>
+	<div id="content">
+		<div id="map"></div>
+		<div id="map-info">
+			<p>[여행지도] 제주시 여행지</p>
+			<p>-</p>
+		</div>
+	</div>
+
+	<!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->
+	<div th:each="touristSpot : ${touristSpots}">
+		<h2 th:text="${touristSpot.title}"></h2>
+		<p th:text="${touristSpot.address}"></p>
+		<!-- 다른 필요한 정보들도 출력 가능 -->
+	</div>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5ee0d96ed76d5a3b4ce71083662ab45"></script>
+
+	<script type="text/javascript">
+		var container = document.getElementById('map');
+		var latitude = 33.4996;
+		var longitude = 126.5312;
+
+		var options = {
+			center: new kakao.maps.LatLng(latitude, longitude),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	</script>
+
+	<div th:replace="~{basic/footer :: body}"></div>
+</body>
+
+</html>
