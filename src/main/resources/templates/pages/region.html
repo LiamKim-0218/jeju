@@ -2,29 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
 	<title>All Tourist Spots</title>
 	<style>
-
 		#content {
-			
-			justify-content: space-between;
-			margin-top: 50px;
+			display: flex;
+			margin-top: 10px;
 			margin-left: 65px;
 		}
 
 		#map {
 			width: 50%;
-			/* 지도의 너비 조절 */
 			height: 600px;
 		}
 
 		#info {
-			width: 35%;
-			/* 정보 컨테이너 너비 조절 */
+			width: 40%;
+			margin-top: 100px;
 		}
+
 		#info h3 {
-			font-weight: bold; /* 여행 문구 굵게 설정 */
+			font-weight: bold;
+			font-size: 20px;
+			/* 크기 조절 */
+			margin-top: 50px;
+			margin-bottom: 15px;
+			margin-left: 65px;
+			/* 여백 추가 */
+		}
+
+		#map-info {
+			font-size: 20px;
+			/* 크기 조절 */
+			font-weight: bold;
+			margin-left: 5%;
 		}
 	</style>
 
@@ -35,16 +45,15 @@
 	<div th:replace="~{basic/header :: body}"></div>
 	<div th:utext="${visitJejuData}"></div>
 
+	<div id="info">
+		<h3>원하는 지역에서 여행을 즐겨보세요.</h3>
+	</div>
 	<div id="content">
-		<div id="info">
-			<!-- 여행 문구 및 이미지 출력 -->
-			<h3>원하는 지역에서 여행을 즐겨보세요.</h3>
-			<img th:if="${visitJejuImageData ne 'No image found'}" th:src="${visitJejuImageData}" alt="VisitJeju Image">
-			<p th:if="${visitJejuImageData eq 'No image found'}">No image found</p>
-		</div>
-
 		<div id="map"></div>
-
+		<div id="map-info">
+			<p>[여행지도] 서귀포시 여행지</p>
+			<p>-</p>
+		</div>
 	</div>
 
 	<!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->

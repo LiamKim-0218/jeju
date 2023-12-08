@@ -1,24 +1,53 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- recommend.html -->
 
-<head th:include="basic/header :: head">
-	<title>All Tourist Spots</title>
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>추천</title>
+	<style>
+		.container {
+			margin-top: 80px;
+		}
+
+		.thumbnail {
+			width: 100px;
+			/* 적절한 크기로 조절하세요. */
+			height: 100px;
+		}
+	</style>
+
+	<head th:replace="~{basic/header :: head}"></head>
 </head>
 
 <body>
-<div th:include="basic/header :: body">	</div>
-<h1>All Tourist Spots</h1>
+	<div th:replace="~{basic/header :: body}"></div>
 
-<!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->
-<div th:each="touristSpot : ${touristSpots}">
-    <h2 th:text="${touristSpot.title}"></h2>
-    <p th:text="${touristSpot.address}"></p>
-    <!-- 다른 필요한 정보들도 출력 가능 -->
-</div>
+	<div class="container">
+		<div>
+			<h2>추천 목록</h2>
+			<div th:each="recommend : ${recommends}">
+				<h3 th:text="${recommend.title}"></h3>
+				<img class="thumbnail" th:src="${recommend.thumbnailPath}" alt="Thumbnail">
+			</div>
+		</div>
+		<div>
+			<h2>서귀포시 추천 목록</h2>
+			<div th:each="seogwipoRecommend : ${seogwipoRecommends}">
+				<h3 th:text="${seogwipoRecommend.title}"></h3>
+				<img class="thumbnail" th:src="${seogwipoRecommend.thumbnailPath}" alt="Thumbnail">
+			</div>
+		</div>
+		<div>
+			<h2>제주시 추천 목록</h2>
+			<div th:each="jejuRecommend : ${jejuRecommends}">
+				<h3 th:text="${jejuRecommend.title}"></h3>
+				<img class="thumbnail" th:src="${jejuRecommend.thumbnailPath}" alt="Thumbnail">
+			</div>
+		</div>
+	</div>
 
-	<div th:include="basic/footer :: body"></div>
-
+	<div th:replace="~{basic/footer :: body}"></div>
 </body>
+
 </html>
-
-

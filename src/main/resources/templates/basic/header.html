@@ -11,6 +11,17 @@
 	<link rel="icon" href="/imgs/favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="/imgs/favicon.ico" type="image/x-icon">
 	<style>
+		.fixed-header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background-color: white;
+			/* 원하는 배경색으로 설정 */
+			z-index: 1000;
+			/* 다른 요소들 위에 나타나도록 설정 */
+		}
+
 		/* 추가된 CSS 스타일 */
 		.navbar-brand img {
 			margin-left: 50px;
@@ -79,12 +90,21 @@
 			color: #555;
 			/* 글꼴 색상 조절 */
 		}
+
+		.search-container-expanded {
+			width: 100%;
+			text-align: center;
+		}
+
+		.search-container-expanded .search-suggestions {
+			display: block;
+		}
 	</style>
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-header">
 		<!-- 로고 이미지로 변경 -->
 		<a class="navbar-brand" href="/">
 			<img src="/imgs/logo.png" style="width: 100%; max-width: 150px;" alt="Jeju Tourism Logo">
@@ -96,12 +116,12 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link mr-5" href="/">홈 <span class="sr-only">(current)</span></a>
+					<a class="nav-link mr-5" href="/">홈<span class="sr-only">(current)</span></a>
 				</li>
 				<!-- 드롭다운 추가 -->
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle mr-5" href="/jejuRegion" id="navbarDropdown" role="button"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						지역
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -111,10 +131,10 @@
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link mr-5" href="pages/recommend">추천</a>
+					<a class="nav-link mr-5" href="/recommend">추천</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="pages/community">커뮤니티</a>
+					<a class="nav-link" href="/community">커뮤니티</a>
 				</li>
 			</ul>
 
@@ -129,22 +149,7 @@
 							</button>
 						</div>
 					</div>
-					<div class="search-suggestions">
-						<h5>최근 검색어</h5>
-						<ul>
-							<li>검색어 1</li>
-							<li>검색어 2</li>
-							<li>검색어 3</li>
-						</ul>
-						<h5>최근 인기 검색어</h5>
-						<ul>
-							<li>인기 검색어 1</li>
-							<li>인기 검색어 2</li>
-							<li>인기 검색어 3</li>
-						</ul>
-					</div>
 				</form>
-
 			</div>
 
 			<!-- 로그인 아이콘 추가 -->
@@ -193,17 +198,26 @@
 	</div>
 
 	<script>
-		// 검색 입력란을 클릭했을 때 이벤트 처리
-		document.getElementById('searchInput').addEventListener('click', function (event) {
-			event.stopPropagation(); // 이벤트 전파 중지
+		document.addEventListener('DOMContentLoaded', function () {
+			var searchInput = document.getElementById('searchInput');
 			var suggestions = document.querySelector('.search-suggestions');
-			suggestions.style.display = 'block';
-		});
 
-		// 문서의 다른 부분을 클릭했을 때 검색어 제안이 사라지도록 처리
-		document.addEventListener('click', function () {
-			var suggestions = document.querySelector('.search-suggestions');
-			suggestions.style.display = 'none';
+			// 검색 입력란을 클릭했을 때 이벤트 처리
+			searchInput.addEventListener('click', function (event) {
+				event.stopPropagation(); // 이벤트 전파 중지
+				document.body.classList.add('search-container-expanded');
+				if (suggestions) {
+					suggestions.style.display = 'block';
+				}
+			});
+
+			// 문서의 다른 부분을 클릭했을 때 검색어 제안이 사라지도록 처리
+			document.addEventListener('click', function () {
+				document.body.classList.remove('search-container-expanded');
+				if (suggestions) {
+					suggestions.style.display = 'none';
+				}
+			});
 		});
 	</script>
 

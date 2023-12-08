@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="basic/header :: head">
+<head>
+
+	
 	<title>All Tourist Spots</title>
+	<style>
+		.container {
+			padding-top: 100px;
+		}
+	</style>
+	<head th:replace="~{basic/header :: head}"></head>
 </head>
 
 <body>
 	<div th:include="basic/header :: body"> </div>
-	<div th:utext="${visitJejuData}"></div>
 
-	<img th:if="${visitJejuImageData ne 'No image found'}" th:src="${visitJejuImageData}" alt="VisitJeju Image">
-	<p th:if="${visitJejuImageData eq 'No image found'}">No image found</p>
+	<div class="container">
+		<div th:utext="${visitJejuData}"></div>
+
+		<img th:if="${visitJejuImageData ne 'No image found'}" th:src="${visitJejuImageData}" alt="VisitJeju Image">
+		<p th:if="${visitJejuImageData eq 'No image found'}">No image found</p>
+
+	</div>
 
 	<div id="map" style="width: 800px; height: 600px;"></div>
 
