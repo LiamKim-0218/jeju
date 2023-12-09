@@ -15,6 +15,20 @@
 			/* 적절한 크기로 조절하세요. */
 			height: 100px;
 		}
+		.recommend{
+			width: 100%;
+		}
+		.recommendList{
+			padding-top:10px;
+		}
+		.recommendList .thumbnail{
+			width: 250px;
+			height: auto;
+		}
+		.recommendList h3{
+			font-size: 15px;	
+			font-weight: bold;		
+		}
 	</style>
 
 	<head th:replace="~{basic/header :: head}"></head>
@@ -24,25 +38,25 @@
 	<div th:replace="~{basic/header :: body}"></div>
 
 	<div class="container">
-		<div>
+		<div class="recommend">
 			<h2>추천 목록</h2>
-			<div th:each="recommend : ${recommends}">
-				<h3 th:text="${recommend.title}"></h3>
+			<div class="recommendList" th:each="recommend : ${recommends}">
 				<img class="thumbnail" th:src="${recommend.thumbnailPath}" alt="Thumbnail">
+				<h3 th:text="${recommend.title}"></h3>
 			</div>
 		</div>
 		<div>
 			<h2>서귀포시 추천 목록</h2>
 			<div th:each="seogwipoRecommend : ${seogwipoRecommends}">
-				<h3 th:text="${seogwipoRecommend.title}"></h3>
 				<img class="thumbnail" th:src="${seogwipoRecommend.thumbnailPath}" alt="Thumbnail">
+				<h3 th:text="${seogwipoRecommend.title}"></h3>
 			</div>
 		</div>
 		<div>
 			<h2>제주시 추천 목록</h2>
 			<div th:each="jejuRecommend : ${jejuRecommends}">
-				<h3 th:text="${jejuRecommend.title}"></h3>
 				<img class="thumbnail" th:src="${jejuRecommend.thumbnailPath}" alt="Thumbnail">
+				<h3 th:text="${jejuRecommend.title}"></h3>
 			</div>
 		</div>
 	</div>

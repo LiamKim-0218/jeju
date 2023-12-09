@@ -29,10 +29,22 @@ public class RecommendService {
         RecommendList response = restTemplate.getForObject(url, RecommendList.class);
 
         if (response != null) {
-            return response.getItems();
+            List<Recommend> recommends = response.getItems();
+            for (Recommend recommend : recommends) {
+                // 각 Recommend 객체에 thumbnailPath를 설정합니다.
+                recommend.setThumbnailPath(getThumbnailPath(apiKey, locale, recommend.getContentsid()));
+            }
+            return recommends;
         }
 
         return Collections.emptyList();
+    }
+    
+    private String getThumbnailPath(String apiKey, String locale, String contentsId) {
+        // 썸네일 경로를 가져오기 위해 API 구조에 맞게 URL을 구성합니다.
+        String thumbnailUrl = "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201810/17/e798d53c-1c8a-4d44-a8ab-111beae96db4.gif";
+        String thumbnailUrl2 = "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202306/13/f3a5a142-f9b7-4950-a8ff-e4064f96d442.jpg";
+        return thumbnailUrl;
     }
     
     public String getSeogwipoContentsId(String apiKey, String locale, int page, String cid) {
@@ -67,7 +79,7 @@ public class RecommendService {
 
         if (response != null && response.getItems() != null && response.getItems().size() > 0) {
             // 여기서 첫 번째 콘텐츠의 ID를 가져옴
-            return response.getItems().get(1).getContentsid();
+            return response.getItems().get(0).getContentsid();
         }
 
         return null;

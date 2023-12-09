@@ -4,7 +4,7 @@ public class Recommend {
 	private String contentsid;
     private String title; // 콘텐츠 제목
     private String thumbnailPath; // 이미지의 썸네일 경로
-
+    
     
     public String getContentsid() {
         return contentsid;
