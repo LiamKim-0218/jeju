@@ -196,31 +196,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			var searchInput = document.getElementById('searchInput');
-			var suggestions = document.querySelector('.search-suggestions');
-
-			// 검색 입력란을 클릭했을 때 이벤트 처리
-			searchInput.addEventListener('click', function (event) {
-				event.stopPropagation(); // 이벤트 전파 중지
-				document.body.classList.add('search-container-expanded');
-				if (suggestions) {
-					suggestions.style.display = 'block';
-				}
-			});
-
-			// 문서의 다른 부분을 클릭했을 때 검색어 제안이 사라지도록 처리
-			document.addEventListener('click', function () {
-				document.body.classList.remove('search-container-expanded');
-				if (suggestions) {
-					suggestions.style.display = 'none';
-				}
-			});
-		});
-	</script>
-
 </body>
 
 </html>

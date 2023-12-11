@@ -121,17 +121,25 @@
 	<div class="Rcontainer">
 		<h2>오늘의 추천 장소</h2>
 	</div>
+
 	<div class="recommendArea">
+		<div class="tourist-spot" th:each="spot : ${touristSpots}">
+			<a th:href="'/detail/' + ${spot.contentsid}"> <!-- 상세 페이지로 이동하는 링크 -->
+				<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
+				<h2 th:text="${spot.title}"></h2>
+				<p th:text="${spot.introduction}"></p>
+			</a>
+		</div>
+	</div>
+	<!--<div class="recommendArea">
 
 		<div class="tourist-spot" th:each="spot : ${touristSpots}">
 			<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
 			<h2 th:text="${spot.title}"></h2>
 			<p th:text="${spot.introduction}"></p>
-
-			<!-- 기타 필요한 정보를 렌더링 -->
 		</div>
 
-	</div>
+	</div>-->
 
 	<div th:replace="~{basic/footer :: body}"></div>
 

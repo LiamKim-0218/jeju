@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>제주옵서양 - 상세 페이지</title>
+    <style>
+        .container {
+            padding: 100px;
+        }
+    </style>
+
+    <head th:replace="~{basic/header :: head}"></head>
+</head>
+
+<body>
+    <div th:replace="~{basic/header :: body}"></div>
+
+    <div class="container">
+        <div th:if="${spot != null}">
+            <h2 th:text="${spot.title}"></h2>
+            <p th:text="${spot.introduction}"></p>
+            <!-- 추가적인 상세 정보 표시 -->
+            <p th:text="${spot.address}"></p>
+            <p th:text="${spot.tag}"></p>
+            <!-- 이하 필요한 정보들을 추가 -->
+        </div>
+        <div th:if="${spot == null}">
+            <p>Error: 상세 정보를 불러오는 중에 오류가 발생했습니다.</p>
+        </div>
+    </div>
+
+    <div th:replace="~{basic/footer :: body}"></div>
+</body>
+
+</html>
