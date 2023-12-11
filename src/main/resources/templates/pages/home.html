@@ -91,13 +91,14 @@
 			</swiper-container>
 		</div>
 	</div>
-	
+
 	<div class="recommendArea">
 		<h2>오늘의 추천 장소</h2>
 		<div th:each="spot : ${touristSpots}">
 			<div class="tourist-spot">
 				<h2 th:text="${spot.title}"></h2>
 				<p th:text="${spot.introduction}"></p>
+				 <img th:src="${spot.thumbnailUrl}" alt="Thumbnail">
 				<!-- 기타 필요한 정보를 렌더링 -->
 			</div>
 		</div>

@@ -13,6 +13,15 @@ public class Home {
 	private String address;
 	private String roadaddress;
 	private String tag;
+	private String thumbnailUrl;
+
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
+	}
+
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
 
 	public String getAlltag() {
 		return alltag;
@@ -47,7 +56,12 @@ public class Home {
 	}
 
 	public Region1cd getRegion1cd() {
-		return region1cd;
+		if (this.region1cd != null) {
+			return this.region1cd;
+		} else {
+			
+			return new Region1cd(); 
+		}
 	}
 
 	public void setRegion1cd(Region1cd region1cd) {
