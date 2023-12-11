@@ -6,6 +6,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<style>
 		.container {
 			margin-top: 80px;
@@ -29,27 +30,6 @@
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		}
 
-		.recommendArea h2 {
-			text-align: center;
-			margin: 30px 0;
-			color: black;
-			font-weight: bold;
-		}
-
-		.tourist-spot {
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
-		.tourist-spot h2 {
-			font-size: 24px;
-			color: #333;
-		}
-
-		.tourist-spot p {
-			color: #666;
-		}
-
 		.button {
 			margin-top: 240px;
 			display: flex;
@@ -62,6 +42,52 @@
 			color: #333;
 			cursor: pointer;
 			margin: 0 10px;
+		}
+
+		.Rcontainer h2 {
+			text-align: center;
+			margin: 30px 0;
+			color: black;
+			font-weight: bold;
+		}
+
+		.recommendArea {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+		}
+
+		.tourist-spot {
+			width: calc(25% - 20px);
+			margin: 10px;
+			height: 200px;
+			text-align: center;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+		}
+
+		.tourist-spot h2 {
+			font-size: 18px;
+			font-weight: bold;
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		.tourist-spot p {
+			color: #666;
+			margin-bottom: 15px;
+		}
+
+		.tourist-spot img {
+			max-width: 100%;
+			max-height: 100%;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			width: 400px;
+			height: 150px;
 		}
 	</style>
 
@@ -92,21 +118,20 @@
 		</div>
 	</div>
 
-	<div class="recommendArea">
+	<div class="Rcontainer">
 		<h2>오늘의 추천 장소</h2>
-		<div th:each="spot : ${touristSpots}">
-			<div class="tourist-spot">
-				<h2 th:text="${spot.title}"></h2>
-				<p th:text="${spot.introduction}"></p>
-				 <img th:src="${spot.thumbnailUrl}" alt="Thumbnail">
-				<!-- 기타 필요한 정보를 렌더링 -->
-			</div>
-		</div>
 	</div>
+	<div class="recommendArea">
 
+		<div class="tourist-spot" th:each="spot : ${touristSpots}">
+			<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
+			<h2 th:text="${spot.title}"></h2>
+			<p th:text="${spot.introduction}"></p>
 
+			<!-- 기타 필요한 정보를 렌더링 -->
+		</div>
 
-
+	</div>
 
 	<div th:replace="~{basic/footer :: body}"></div>
 
