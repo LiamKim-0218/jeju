@@ -29,7 +29,7 @@ public class HomeController {
 	public String homeMainpage(Model model) {
 		String apiKey = VapiKey;
 		String locale = "ko";
-		int page = 30;
+		int page = 20;
 
 		List<Home> touristSpots = homeService.getTouristSpots(apiKey, locale, page);
 

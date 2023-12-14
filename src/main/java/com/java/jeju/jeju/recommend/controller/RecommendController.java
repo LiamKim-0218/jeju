@@ -2,52 +2,44 @@ package com.java.jeju.jeju.recommend.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.java.jeju.jeju.recommend.domain.Recommend;
+import com.java.jeju.jeju.home.domain.Home;
+import com.java.jeju.jeju.home.domain.RepPhoto;
 import com.java.jeju.jeju.recommend.service.RecommendService;
 
 @Controller
 public class RecommendController {
 
-	private final RecommendService recommendService;
-
-	public RecommendController(RecommendService recommendService) {
-		this.recommendService = recommendService;
-	}
-
 	@Value("${visitjeju.api.key}")
-	private String apiKey;
+	private String VapiKey;
+
+	@Autowired
+	private RecommendService recommendService;
 
 	@GetMapping("/recommend")
 	public String recommendPage(Model model) {
-		// 서귀포의 콘텐츠 ID 가져오기
-		String seogwipoContentsId = recommendService.getSeogwipoContentsId(apiKey, "kr", 1, "");
+		String apiKey = VapiKey;
+		String locale = "ko";
+		int page = 25;
 
-		if (seogwipoContentsId != null) {
-			// 얻은 콘텐츠 ID를 사용하여 서귀포 관련 추천 정보 가져오기
-			List<Recommend> seogwipoRecommends = recommendService.getRecommends(apiKey, "kr", 1, seogwipoContentsId);
+		List<Home> touristSpots = recommendService.getTouristSpots(apiKey, locale, page);
 
-			model.addAttribute("seogwipoRecommends", seogwipoRecommends);
+		if (touristSpots != null) {
+			for (Home spot : touristSpots) {
+				RepPhoto repPhoto = spot.getRepPhoto();
+				if (repPhoto != null) {
+					String thumbnailUrl = repPhoto.getPhotoid().getThumbnailpath();
+					spot.setThumbnailUrl(thumbnailUrl);
+				}
+			}
+
+			model.addAttribute("touristSpots", touristSpots);
 		}
-
-		// 제주시의 콘텐츠 ID 가져오기
-		String jejuContentsId = recommendService.getJejuContentsId(apiKey, "kr", 1, "");
-
-		if (jejuContentsId != null) {
-			// 얻은 콘텐츠 ID를 사용하여 제주시 관련 추천 정보 가져오기
-			List<Recommend> jejuRecommends = recommendService.getRecommends(apiKey, "kr", 1, jejuContentsId);
-
-			model.addAttribute("jejuRecommends", jejuRecommends);
-		}
-
-		// 기존의 CONT_000000000500349에 대한 추천 정보 가져오기
-		List<Recommend> recommends = recommendService.getRecommends(apiKey, "kr", 1, "CONT_000000000500349");
-
-		model.addAttribute("recommends", recommends);
 
 		return "/pages/recommend";
 	}

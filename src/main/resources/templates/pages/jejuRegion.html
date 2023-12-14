@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>All Tourist Spots</title>
+	<title>제주시 관광지</title>
 	<style>
 		#content {
 			display: flex;
@@ -23,22 +23,45 @@
 		#info h3 {
 			font-weight: bold;
 			font-size: 20px;
-			/* 크기 조절 */
 			margin-top: 50px;
 			margin-bottom: 15px;
 			margin-left: 65px;
-			/* 여백 추가 */
 		}
 
 		#map-info {
 			font-size: 20px;
-			/* 크기 조절 */
 			font-weight: bold;
 			margin-left: 5%;
+		}
+
+		.thumbnail-container {
+			overflow-y: scroll;
+			height: 500px; /* 보이는 썸네일 개수 및 높이 조절 가능 */
+		}
+
+		.thumbnail {
+			margin-bottom: 20px;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			background-color: #f9f9f9;
+			cursor: pointer; /* 포인터 형태로 변경하여 클릭 가능한 상태로 만듭니다. */
+		}
+
+		.thumbnail img {
+			max-width: 100%;
+			height: 100px;
+		}
+
+		.thumbnail p {
+			margin: 10px 0;
+			font-size: 10px;
 		}
 	</style>
 
 	<head th:replace="~{basic/header :: head}"></head>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5ee0d96ed76d5a3b4ce71083662ab45"></script>
 </head>
 
 <body>
@@ -53,30 +76,76 @@
 		<div id="map-info">
 			<p>[여행지도] 제주시 여행지</p>
 			<p>-</p>
+			<div class="thumbnail-container">
+				<!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->
+				<div class="thumbnail" th:each="spot : ${touristSpots}" th:data-latitude="${spot.latitude}"
+					th:data-longitude="${spot.longitude}" onclick="moveToLocation(this)">
+					<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
+					<img src="/imgs/logo.png" alt="Placeholder Image" th:unless="${spot.thumbnailUrl}">
+					<p th:text="${spot.title}"></p>
+					<p th:text="${spot.address}"></p>
+					
+					
+
+					<!-- Add more details if needed -->
+				</div>
+			</div>
 		</div>
 	</div>
+	
 
-	<!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->
-	<div th:each="touristSpot : ${touristSpots}">
-		<h2 th:text="${touristSpot.title}"></h2>
-		<p th:text="${touristSpot.address}"></p>
-		<!-- 다른 필요한 정보들도 출력 가능 -->
-	</div>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var touristSpots = /*[[${touristSpots}]]*/[]; // 서버에서 받아온 JSON 데이터
+		/*]]>*/
+	</script>
 
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5ee0d96ed76d5a3b4ce71083662ab45"></script>
-
+	<!-- JavaScript 코드 -->
 	<script type="text/javascript">
 		var container = document.getElementById('map');
-		var latitude = 33.4996;
-		var longitude = 126.5312;
+		var map;
 
-		var options = {
-			center: new kakao.maps.LatLng(latitude, longitude),
-			level: 9
+		// 지도 초기화
+		function initMap() {
+			// 좌표: 126.5311884, 33.4996213 (원하는 좌표로 변경 가능)
+			var centerLatLng = new kakao.maps.LatLng(33.4996213, 126.5311884);
+
+			var options = {
+				center: centerLatLng,
+				level: 9
+			};
+
+			map = new kakao.maps.Map(container, options);
+
+			// 지도에 마커 추가
+			touristSpots.forEach(function (spot) {
+				var markerPosition = new kakao.maps.LatLng(spot.latitude, spot.longitude);
+
+				var marker = new kakao.maps.Marker({
+					position: markerPosition,
+					title: spot.title
+				});
+
+				marker.setMap(map);
+			});
+		}
+
+		// 썸네일 클릭 시 해당 좌표로 이동하면서 지도를 확대하는 함수
+		function moveToLocation(thumbnail) {
+			var latitude = thumbnail.getAttribute('data-latitude');
+			var longitude = thumbnail.getAttribute('data-longitude');
+
+			var moveLatLng = new kakao.maps.LatLng(latitude, longitude);
+
+			// 지도 레벨 및 중심 좌표 설정
+			map.setLevel(4);
+			map.setCenter(moveLatLng);
+		}
+
+		// 스크립트가 로드된 후 initMap 함수 호출
+		window.onload = function () {
+			initMap();
 		};
-
-		var map = new kakao.maps.Map(container, options);
 	</script>
 
 	<div th:replace="~{basic/footer :: body}"></div>
