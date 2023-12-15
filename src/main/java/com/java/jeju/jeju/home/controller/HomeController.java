@@ -50,14 +50,31 @@ public class HomeController {
 
 	@GetMapping("/detail/{contentsId}")
 	public String showDetailPage(@PathVariable(name = "contentsId") String contentsId, Model model) {
+	    String apiKey = VapiKey;
+	    String locale = "ko";
+	    int page = 20;
+
 	    try {
-	        Home spot = homeService.getTouristSpotDetails(contentsId);
-	        model.addAttribute("spot", spot);
-	        return "/pages/detail";
+	        Home specificSpot = homeService.getTouristSpotDetails(apiKey, locale, page, contentsId);
+	        if (specificSpot != null) {
+	            RepPhoto repPhoto = specificSpot.getRepPhoto();
+	            if (repPhoto != null) {
+	                String thumbnailUrl = repPhoto.getPhotoid().getThumbnailpath();
+	                specificSpot.setThumbnailUrl(thumbnailUrl);
+	            }
+	            if (repPhoto != null) {
+	                String imgpathUrl = repPhoto.getPhotoid().getImgpath();
+	                specificSpot.setImgpathUrl(imgpathUrl);
+	            }
+	            model.addAttribute("spot", specificSpot);
+	            return "pages/detail";
+	        }
+	        // 수정된 부분 끝
+
+	        return null;
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        model.addAttribute("error", "상세 정보를 불러오는 중에 오류가 발생했습니다. 에러 메시지: " + e.getMessage());
-	        return "error";
+	        return null;
 	    }
 	}
 	

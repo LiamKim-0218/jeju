@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>제주옵서양 - 에러 페이지</title>
+	<style>
+		.container {
+			width: 100%;
+			height: 80vh;
+			padding: 100px;
+		}
+	</style>
+
+	<head th:replace="~{basic/header :: head}"></head>
+</head>
+
+<body>
+	<div th:replace="~{basic/header :: body}"></div>
+
+	<div class="container">
+		<h2>죄송합니다. 요청하신 페이지는 현재 구현 중 입니다.</h2>
+		<h2>다음에 다시 찾아주세요~</h2>
+		
+	</div>
+
+	<div th:replace="~{basic/footer :: body}"></div>
+</body>
+
+</html>

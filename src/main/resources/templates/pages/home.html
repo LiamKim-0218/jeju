@@ -16,6 +16,7 @@
 		.swiper-slide {
 			display: flex;
 			flex-direction: row;
+			
 		}
 
 		.visual-sec .txt-box,
@@ -26,7 +27,7 @@
 
 		.visual-sec .txt-box {
 			position: absolute;
-			left: 50%;
+			left: 35%;
 			top: 50%;
 			box-sizing: border-box;
 			width: 50%;
@@ -74,6 +75,7 @@
 		.visual-sec img {
 			transform: scale(1.05);
 			transition: 1.5s 0.1s;
+			
 		}
 
 		.visual-sec .swiper-slide-active img {
@@ -85,7 +87,7 @@
 			display: inline-flex;
 			width: 90%;
 			height: 50px;
-			left: 105%;
+			left: 75%;
 			bottom: 10px;
 			box-sizing: border-box;
 			padding: 0 20px;
@@ -194,9 +196,9 @@
 
 
 		.detail {
-			position: relative;
+			
 			width: 100%;
-			max-width: 60%;
+			max-width: 100%;
 
 		}
 
@@ -205,6 +207,8 @@
 			max-height: 100%;
 			border-radius: 10px;
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			margin-top : 100px;
+			margin-left: 50%;
 		}
 
 		.Rcontainer h2 {
@@ -236,7 +240,7 @@
 			font-size: 16px;
 			font-weight: bold;
 			color: #333;
-			margin-top:5px;
+			margin-top: 5px;
 			margin-bottom: 10px;
 		}
 
@@ -253,6 +257,10 @@
 			width: 400px;
 			height: 150px;
 		}
+		
+		.p{
+			margin-left : 20px;
+		}
 	</style>
 
 	<head th:replace="~{basic/header :: head}"></head>
@@ -265,44 +273,44 @@
 		<div class="visual-sec">
 			<div class="swiper main-swiper">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" style="background-color: lightsteelblue">
+					<div class="swiper-slide" style="background-color: rgb(210, 189, 199)">
 						<div class="txt-box">
 							<h3 class="txt"><br>최적의 코스</h3>
 							<p>신비로운 자연경관을 바라보며 바람을 가르다.</p>
 						</div>
 						<div class="img-box">
-							<source srcset="img/main-img-02.jpg" media="screen and (min-width: 981px)">
-							<img src="img/main-img-02.jpg" class="immg" alt="">
+							<source srcset="imgs/img2.jpg" media="screen and (min-width: 981px)">
+							<img src="imgs/img2.jpg" class="immg" alt="">
 						</div>
 					</div>
-					<div class="swiper-slide" style="background-color: lightslategrey">
+					<div class="swiper-slide" style="background-color: rgb(187, 203, 204)">
 						<div class="txt-box">
 							<h3 class="txt"><br>힐링</h3>
-							<p>자연이 살아 숨 쉬는 곳</p>
+							<p>자연이 살아 숨 쉬는 제주도</p>
 						</div>
 						<div class="img-box">
-							<source srcset="img/main-img-02.jpg" media="screen and (min-width: 981px)">
-							<img src="img/main-img-02-m@3x.jpg" alt="">
+							<source srcset="imgs/img3.jpg" media="screen and (min-width: 981px)">
+							<img src="imgs/img3.jpg" alt="">
 						</div>
 					</div>
-					<div class="swiper-slide" style="background-color: thistle">
+					<div class="swiper-slide" style="background-color: rgb(160, 157, 179)">
 						<div class="txt-box">
 							<h3 class="txt"><br>환상의 코스</h3>
 							<p>자연이 만들어낸 아름다움을 품은 최고의 장소</p>
 						</div>
 						<div class="img-box">
-							<source srcset="img/main-img-03.jpg" media="screen and (min-width: 981px)">
-							<img src="img/main-img-03-m@3x.jpg" alt="">
+							<source srcset="imgs/img1.jpg" media="screen and (min-width: 981px)">
+							<img src="imgs/img1.jpg" alt="">
 						</div>
 					</div>
-					<div class="swiper-slide" style="background-color: lightgray">
+					<div class="swiper-slide" style="background-color: rgb(196, 190, 179)">
 						<div class="txt-box">
 							<h3 class="txt"><br>자연과 함께</h3>
 							<p>청명한 하늘과 푸른 들판이 함께하는 공간</p>
 						</div>
 						<div class="img-box">
-							<source srcset="img/main-img-04.jpg" media="screen and (min-width: 981px)">
-							<img src="img/main-img-04-m@3x.jpg" alt="">
+							<source srcset="imgs/img4.jpg" media="screen and (min-width: 981px)">
+							<img src="imgs/img4.jpg" alt="">
 						</div>
 					</div>
 				</div>
@@ -327,13 +335,21 @@
 	<div class="Rcontainer">
 		<h2>오늘의 추천 장소</h2>
 	</div>
-
+	<p>제주시 추천 장소</p>
 	<div class="recommendArea">
-		<div class="tourist-spot" th:each="spot : ${touristSpots}">
-			<a th:href="'/detail/' + ${spot.contentsid}"> <!-- 상세 페이지로 이동하는 링크 -->
+		<div class="tourist-spot" th:each="spot, iterStat : ${touristSpots}" th:if="${iterStat.index < 4}">
+			<a th:href="@{/detail/{contentsId}(contentsId=${spot.contentsid})}">
 				<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
 				<h2 th:text="${spot.title}"></h2>
-				<p th:text="${spot.introduction}"></p>
+			</a>
+		</div>
+	</div>
+	<p>서귀포시 추천 장소</p>
+	<div class="recommendArea">
+		<div class="tourist-spot" th:each="spot, iterStat : ${tourSpots}" th:if="${iterStat.index < 4}">
+			<a th:href="@{/detail/{contentsId}(contentsId=${spot.contentsid})}">
+				<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
+				<h2 th:text="${spot.title}"></h2>
 			</a>
 		</div>
 	</div>

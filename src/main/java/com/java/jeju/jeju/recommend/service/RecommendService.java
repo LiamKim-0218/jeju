@@ -36,6 +36,34 @@ public class RecommendService {
 
 		return Collections.emptyList();
 	}
+	
+	public Home getTouristSpotDetails(String apiKey, String locale, int page, String contentsId) {
+	    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
+	            .queryParam("apiKey", apiKey)
+	            .queryParam("locale", locale)
+	            .queryParam("page", page)
+	            .queryParam("contentsId", contentsId);
+
+	    String url = builder.toUriString();
+
+	    RestTemplate restTemplate = new RestTemplate();
+	    ApiResponse response = restTemplate.getForObject(url, ApiResponse.class);
+
+	    // API로부터 상세 정보를 가져오는 로직을 구현
+	    // 예를 들어, response에서 필요한 정보를 추출하거나 다른 API 호출을 통해 상세 정보를 가져오는 등의 작업이 이루어져야 합니다.
+
+	    // 여기서는 가상의 로직으로, 해당하는 contentsId를 찾으면 해당 관광지를 반환하도록 작성
+	    List<Home> allTouristSpots = getTouristSpots(apiKey, locale, 25);
+
+	    for (Home spot : allTouristSpots) {
+	        if (spot.getContentsid().equals(contentsId)) {
+	            return spot;
+	        }
+	    }
+
+	    // 해당하는 contentsId를 찾지 못한 경우 null을 반환
+	    return null;
+	}
     
     
 }

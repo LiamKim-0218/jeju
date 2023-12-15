@@ -14,6 +14,15 @@ public class Home {
 	private String roadaddress;
 	private String tag;
 	private String thumbnailUrl;
+	private String imgpathUrl;
+
+	public String getImgpathUrl() {
+		return imgpathUrl;
+	}
+
+	public void setImgpathUrl(String imgpathUrl) {
+		this.imgpathUrl = imgpathUrl;
+	}
 
 	public String getThumbnailUrl() {
 		return thumbnailUrl;

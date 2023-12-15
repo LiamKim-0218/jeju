@@ -41,9 +41,11 @@ public class HomeService {
 	}
 	
 	
-	public Home getTouristSpotDetails(String contentsId) {
+	public Home getTouristSpotDetails(String apiKey, String locale, int page, String contentsId) {
 	    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
 	            .queryParam("apiKey", apiKey)
+	            .queryParam("locale", locale)
+	            .queryParam("page", page)
 	            .queryParam("contentsId", contentsId);
 
 	    String url = builder.toUriString();
@@ -51,19 +53,22 @@ public class HomeService {
 	    RestTemplate restTemplate = new RestTemplate();
 	    ApiResponse response = restTemplate.getForObject(url, ApiResponse.class);
 
-	    Home spot = null;
-	    if (response != null && response.getItems() != null && !response.getItems().isEmpty()) {
-	        spot = response.getItems().get(0);
+	    // API로부터 상세 정보를 가져오는 로직을 구현
+	    // 예를 들어, response에서 필요한 정보를 추출하거나 다른 API 호출을 통해 상세 정보를 가져오는 등의 작업이 이루어져야 합니다.
 
-	        // Update: Set introduction field if not already set
-	        if (spot != null && spot.getIntroduction() == null) {
-	            spot.setIntroduction("상세 정보 없음"); // 또는 적절한 기본값으로 설정
+	    // 여기서는 가상의 로직으로, 해당하는 contentsId를 찾으면 해당 관광지를 반환하도록 작성
+	    List<Home> allTouristSpots = getTouristSpots(apiKey, locale, 20);
+
+	    for (Home spot : allTouristSpots) {
+	        if (spot.getContentsid().equals(contentsId)) {
+	            return spot;
 	        }
-	    } else {
-	        System.out.println("API 응답이 비어 있거나 null입니다.");
 	    }
 
-	    return spot;
+	    // 해당하는 contentsId를 찾지 못한 경우 null을 반환
+	    return null;
 	}
+	
+	
 
 }
