@@ -65,7 +65,7 @@
 			<div class="recommendList">
 
 				<!-- Display tourist spot information here -->
-				<div class="thumbnail" th:each="spot : ${touristSpots}">
+				<div class="thumbnail" th:each="spot, iterStat : ${touristSpots}" th:if="${iterStat.index < 20}">
 					<a th:href="@{/recommendDetail/{contentsId}(contentsId=${spot.contentsid})}">
 					<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
 					<img src="/imgs/logo.png" alt="Placeholder Image" th:unless="${spot.thumbnailUrl}">
@@ -76,57 +76,6 @@
 			</div>
 		</div>
 
-		<!-- 추가 섹션: 서귀포시 추천 목록 -->
-		<div class="recommend">
-			<h3>서귀포시 추천 목록</h3>
-			<div class="recommendList">
-				<!-- Display 서귀포시 추천 정보 here -->
-				<div class="thumbnail" th:each="spot : ${seogwipoData}">
-					<img th:src="${spot.repPhoto.photoid.thumbnailpath}" alt="Thumbnail">
-					<h4 th:text="${spot.title}" th:if="${spot.title}"></h4>
-					<!-- Add more content for 서귀포시 if needed -->
-				</div>
-			</div>
-		</div>
-
-		<!-- 추가 섹션: 제주시 추천 목록 -->
-		<div class="recommend">
-			<h3>제주시 추천 목록</h3>
-			<div class="recommendList">
-				<!-- Display 제주시 추천 정보 here -->
-				<div class="thumbnail" th:each="spot : ${jejuData}">
-					<img th:src="${spot.repPhoto.photoid.thumbnailpath}" alt="Thumbnail">
-					<h4 th:text="${spot.title}" th:if="${spot.title}"></h4>
-					<!-- Add more content for 제주시 if needed -->
-				</div>
-			</div>
-		</div>
-
-		<!-- 추가 섹션: 음식점 추천 목록 -->
-		<div class="recommend">
-			<h3>음식점 추천 목록</h3>
-			<div class="recommendList">
-				<!-- Display 음식점 추천 정보 here -->
-				<div class="thumbnail" th:each="spot : ${restaurantData}">
-					<img th:src="${spot.repPhoto.photoid.thumbnailpath}" alt="Thumbnail">
-					<h4 th:text="${spot.title}" th:if="${spot.title}"></h4>
-					<!-- Add more content for 음식점 if needed -->
-				</div>
-			</div>
-		</div>
-
-		<!-- 추가 섹션: 쇼핑 추천 목록 -->
-		<div class="recommend">
-			<h3>쇼핑 추천 목록</h3>
-			<div class="recommendList">
-				<!-- Display 쇼핑 추천 정보 here -->
-				<div class="thumbnail" th:each="spot : ${shoppingData}">
-					<img th:src="${spot.repPhoto.photoid.thumbnailpath}" alt="Thumbnail">
-					<h4 th:text="${spot.title}" th:if="${spot.title}"></h4>
-					<!-- Add more content for 쇼핑 if needed -->
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<div th:replace="~{basic/footer :: body}"></div>

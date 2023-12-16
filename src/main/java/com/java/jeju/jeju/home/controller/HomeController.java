@@ -44,6 +44,20 @@ public class HomeController {
 
 			model.addAttribute("touristSpots", touristSpots);
 		}
+		
+		List<Home> tourSpots = homeService.getTouristSpots(apiKey, locale, 23);
+		
+		if (tourSpots != null) {
+			for (Home spot : tourSpots) {
+				RepPhoto repPhoto = spot.getRepPhoto();
+				if (repPhoto != null) {
+					String thumbnailUrl = repPhoto.getPhotoid().getThumbnailpath();
+					spot.setThumbnailUrl(thumbnailUrl);
+				}
+			}
+
+			model.addAttribute("tourSpots", tourSpots);
+		}
 
 		return "/pages/home";
 	}
