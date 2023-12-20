@@ -28,19 +28,19 @@ public class VisitJejuController {
 	public static class TouristSpot {
 	    private String title;
 	    private String address;
-	    // ... 다른 필요한 정보들
+
 	}
 
 	@GetMapping("/allTouristSpots")
     public String getAllTouristSpots(Model model) {
         List<String> allTouristSpotDetails = visitJejuService.getAllTouristSpotDetails();
 
-        // 추출한 관광지 정보를 적절히 처리하여 모델에 추가
+       
         List<TouristSpot> touristSpots = processTouristSpotDetails(allTouristSpotDetails);
 
         model.addAttribute("touristSpots", touristSpots);
 
-        return "allTouristSpots"; // 뷰 이름 (allTouristSpots.html)
+        return "allTouristSpots"; 
     }
 
 	private List<TouristSpot> processTouristSpotDetails(List<String> allTouristSpotDetails) {
@@ -51,14 +51,10 @@ public class VisitJejuController {
 	        try {
 	            JsonNode rootNode = objectMapper.readTree(jsonDetail);
 
-	            // 적절한 방식으로 JsonNode에서 필요한 정보를 추출하여 TouristSpot 객체 생성
-	            // 아래는 예시이므로 적절히 수정해야 합니다.
 	            TouristSpot touristSpot = new TouristSpot(
 	                rootNode.path("title").asText(),
 	                rootNode.path("address").asText()
 	            );
-	            // ... 필요한 정보 추가
-
 	            touristSpots.add(touristSpot);
 	        } catch (Exception e) {
 	            // 에러를 콘솔에 출력하고 계속 진행

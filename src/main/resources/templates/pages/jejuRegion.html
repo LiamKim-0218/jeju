@@ -83,7 +83,6 @@
 			<p>[여행지도] 제주시 여행지</p>
 			<p>-</p>
 			<div class="thumbnail-container">
-				<!-- Thymeleaf를 사용하여 서버에서 전달받은 touristSpots 리스트를 순회하면서 출력 -->
 				<div class="thumbnail" th:each="spot : ${touristSpots}" th:data-latitude="${spot.latitude}"
 					th:data-longitude="${spot.longitude}" onclick="moveToLocation(this)">
 					<img th:src="${spot.thumbnailUrl}" alt="Thumbnail" th:if="${spot.thumbnailUrl}">
